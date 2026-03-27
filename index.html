@@ -152,17 +152,28 @@
         }
 
         /* Modal Potwierdzenia */
-        #modal-overlay {
+         modal-overlay {
             display: none;
             position: fixed;
             top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.5); /* Ciemniejsze tło */
+            width: 100%;
+            height: 100svh; /* Dynamiczna wysokość dla iOS */
+            background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
             z-index: 2000;
             align-items: center;
             justify-content: center;
+            /* Zapobiega przesunięciom */
+            overflow: hidden;
+         }
+
+        /* Klasa blokująca scrollowanie body na iOS */
+        .no-scroll {
+            overflow: hidden;
+            height: 100svh;
+            position: fixed;
+            width: 100%;
         }
 
         #status-box {
@@ -276,10 +287,12 @@
 
     function showInsights() {
         document.getElementById('modal-overlay').style.display = 'flex';
+        document.body.classList.add('no-scroll'); // Blokuje scroll i paski na dole
     }
 
     function closeModal() {
         document.getElementById('modal-overlay').style.display = 'none';
+        document.body.classList.remove('no-scroll'); // Przywraca normalne zachowanie
     }
 </script>
 
